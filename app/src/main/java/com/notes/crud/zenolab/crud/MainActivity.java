@@ -85,21 +85,4 @@ public class MainActivity extends AppCompatActivity {
 }
 
 
-class CustomViewHolder extends RecyclerView.ViewHolder {
-
-    public final View mView;
-
-    TextView txtTitle;
-    TextView txtValue;
-    TextView txtRound;
-    TextView txtChange;
-    private ImageView coverImage;
-
-    CustomViewHolder(View itemView) {
-        super(itemView);
-        mView = itemView;
-
-
-    }
-}
 
