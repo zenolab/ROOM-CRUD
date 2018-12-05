@@ -7,10 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,3 +83,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+
+class CustomViewHolder extends RecyclerView.ViewHolder {
+
+    public final View mView;
+
+    TextView txtTitle;
+    TextView txtValue;
+    TextView txtRound;
+    TextView txtChange;
+    private ImageView coverImage;
+
+    CustomViewHolder(View itemView) {
+        super(itemView);
+        mView = itemView;
+
+
+    }
+}
+
