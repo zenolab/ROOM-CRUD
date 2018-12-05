@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
         // добавляем фрагмент
         ScrollFragment myFragment = new ScrollFragment();
         fragmentTransaction.add(R.id.content_frame, myFragment);
-        //До добавления фрагмента. проверить, находится ли этот фрагмент уже в стеке
-        // getSupportFragmentManager().findFragmentByTag(ScrollFragment.TAG);
-        // .addToBackStack(FragmentName.TAG);
+        /**До добавления фрагмента. проверить, находится ли этот фрагмент уже в стеке */
+        // .getSupportFragmentManager().findFragmentByTag(ScrollFragment.TAG);
+       // .addToBackStack(FragmentName.TAG);
         fragmentTransaction.addToBackStack(null);
 
         fragmentTransaction.commit();
