@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addFragmentOnTop(Fragment fragment) {
-        // получаем экземпляр FragmentTransaction
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
 
-        // добавляем фрагмент
+        // add fragment
         ScrollFragment myFragment = new ScrollFragment();
         fragmentTransaction.add(R.id.content_frame, myFragment);
         /**До добавления фрагмента. проверить, находится ли этот фрагмент уже в стеке */
