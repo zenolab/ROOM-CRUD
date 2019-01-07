@@ -4,50 +4,42 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.notes.crud.zenolab.crud.adapter.NoteHolder;
+import com.notes.crud.zenolab.crud.R;
 import com.notes.crud.zenolab.crud.room.entity.Note;
 
 import java.util.List;
 
-public class ViewAdapter extends RecyclerView.Adapter <NoteHolder>{
+public class ViewAdapter extends RecyclerView.Adapter <NoteHolder> {
 
     private static final String LOG_TAG = new RuntimeException().getStackTrace()[0].getClassName();
 
-
     private Context context;
-    private List<String> notes;
+    private List<Note> notes;
     private List<Note> list;
     private LayoutInflater layoutInflater;
-    private OnNoteItemClick onNoteItemClick;
 
     public ViewAdapter(Context context, List<Note> notes){
         this.context = context;
-
-       // this.notes = notes;
-
         layoutInflater = LayoutInflater.from(context);
-        this.list = list;
-        this.context = context;
-        this.onNoteItemClick = (OnNoteItemClick) context;
+        this.notes = notes;
+        this.list = notes;
     }
-
     @Override
-    public NoteHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        return new NoteHolder(inflater, viewGroup);
+    public NoteHolder onCreateViewHolder(ViewGroup parent, int viewType ){
+        View view = layoutInflater.inflate(R.layout.note_list_item,parent,false);
+        return new NoteHolder(view);
     }
-
     @Override
     public void onBindViewHolder(NoteHolder noteHolder, int position) {
-        noteHolder.title.setText(notes.get(position));
-
-        Log.e(LOG_TAG, "onBindViewHolder: "+ list.get(position));
+        Log.e(LOG_TAG, "---- onBindViewHolder: "+ list.get(position));
         noteHolder.textViewTitle.setText(list.get(position).getTitle());
         noteHolder.textViewContent.setText(list.get(position).getContent());
+        noteHolder.textViewContent.setSelected(true);//auto scroll
     }
-
     @Override
     public int getItemCount() { return notes.size(); }
 }

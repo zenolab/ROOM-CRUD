@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static final String LOG_TAG = new RuntimeException().getStackTrace()[0].getClassName();
-
     private static final String BACK_STACK_ROOT_TAG = "root_fragment";
 
     @Override
@@ -29,16 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                        addFragmentOnTop(new ScrollFragment());
-
-            }
-        });
+        addFragmentOnTop(new ScrollFragment());
     }
 
     private void addFragmentOnTop(Fragment fragment) {
@@ -46,19 +36,12 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
         // add fragment
         ScrollFragment myFragment = new ScrollFragment();
         fragmentTransaction.add(R.id.content_frame, myFragment);
-        /**До добавления фрагмента. проверить, находится ли этот фрагмент уже в стеке */
-        // .getSupportFragmentManager().findFragmentByTag(ScrollFragment.TAG);
-       // .addToBackStack(FragmentName.TAG);
         fragmentTransaction.addToBackStack(null);
-
         fragmentTransaction.commit();
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,8 +61,23 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
 
