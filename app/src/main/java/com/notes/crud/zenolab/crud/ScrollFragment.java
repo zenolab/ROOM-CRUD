@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -41,7 +42,10 @@ public class ScrollFragment extends Fragment  {
     private TextView textViewMsg;
     private NoteDatabase noteDatabase;
     private ViewAdapter notesAdapter;
+    FloatingActionButton fab;
     private int pos;
+
+
 
 
     private  View rootView;
@@ -70,6 +74,9 @@ public class ScrollFragment extends Fragment  {
     private View initViews(View view){
         context = view.getContext();
         textViewMsg =  (TextView) view.findViewById(R.id.tv__empty);
+
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(listener);
 
         recycler = view.findViewById(R.id.recyclerView);
         recycler.setLayoutManager(new LinearLayoutManager(context));
