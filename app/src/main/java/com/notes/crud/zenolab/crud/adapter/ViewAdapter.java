@@ -37,7 +37,7 @@ public class ViewAdapter extends RecyclerView.Adapter <NoteHolder> {
     public void onBindViewHolder(NoteHolder noteHolder, int position) {
         Log.e(LOG_TAG, "---- onBindViewHolder: "+ list.get(position));
         noteHolder.textViewTitle.setText(list.get(position).getTitle());
-        noteHolder.textViewContent.setText(list.get(position).getContent());
+        noteHolder.textViewContent.setText(list.get(position).getContent() );
         noteHolder.textViewContent.setSelected(true);//auto scroll
     }
     @Override
