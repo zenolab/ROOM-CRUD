@@ -70,17 +70,7 @@ public class AddNoteActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
         save();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     private static class InsertTask extends AsyncTask<Void, Void, Boolean> {
