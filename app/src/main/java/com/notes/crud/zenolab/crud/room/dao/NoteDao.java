@@ -15,11 +15,12 @@ import java.util.List;
 @Dao
 public interface NoteDao {
 
-    @Query("SELECT * FROM "+ Constants.TABLE_NAME_NOTE)
+    @Query("SELECT * FROM " + Constants.TABLE_NAME_NOTE)
     List<Note> getNotes();
 
     /**
      * Insert the object in database
+     *
      * @param note, object to be inserted
      */
     @Insert
@@ -27,6 +28,7 @@ public interface NoteDao {
 
     /**
      * update the object in database
+     *
      * @param note, object to be updated
      */
     @Update
@@ -34,14 +36,17 @@ public interface NoteDao {
 
     /**
      * delete the object from database
+     *
      * @param note, object to be deleted
      */
     @Delete
     void deleteNote(Note note);
 
     // Note... is varargs, here note is an array
+
     /**
      * delete list of objects from database
+     *
      * @param note, array of oject to be deleted
      */
     @Delete

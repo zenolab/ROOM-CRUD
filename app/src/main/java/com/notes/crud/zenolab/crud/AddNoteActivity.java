@@ -3,8 +3,11 @@ package com.notes.crud.zenolab.crud;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import com.google.android.material.textfield.TextInputEditText;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +20,9 @@ import java.lang.ref.WeakReference;
 
 public class AddNoteActivity extends AppCompatActivity {
 
-    private TextInputEditText et_title,et_content;
+    private static final String LOG_TAG = new RuntimeException().getStackTrace()[0].getClassName();
+
+    private TextInputEditText et_title, et_content;
     private NoteDatabase noteDatabase;
     private Note note;
     private boolean update;
@@ -30,7 +35,7 @@ public class AddNoteActivity extends AppCompatActivity {
         et_content = findViewById(R.id.et_content);
         noteDatabase = NoteDatabase.getInstance(AddNoteActivity.this);
         Button button = findViewById(R.id.but_save);
-        if ( (note = (Note) getIntent().getSerializableExtra("note"))!=null ){
+        if ((note = (Note) getIntent().getSerializableExtra("note")) != null) {
             getSupportActionBar().setTitle("Update Note");
             update = true;
             button.setText("Update");
@@ -40,25 +45,25 @@ public class AddNoteActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               save();
+                save();
             }
         });
     }
 
     private void save() {
-        if (update){
+        if (update) {
             note.setContent(et_content.getText().toString());
             note.setTitle(et_title.getText().toString());
             noteDatabase.getNoteDao().updateNote(note);
-            setResult(note,2);
-        }else {
+            setResult(note, 2);
+        } else {
             note = new Note(et_content.getText().toString(), et_title.getText().toString());
-            new InsertTask(AddNoteActivity.this,note).execute();
+            new InsertTask(AddNoteActivity.this, note).execute();
         }
     }
 
-    private void setResult(Note note, int flag){
-        setResult(flag,new Intent().putExtra("note",note));
+    private void setResult(Note note, int flag) {
+        setResult(flag, new Intent().putExtra("note", note));
         finish();
     }
 
@@ -78,7 +83,7 @@ public class AddNoteActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private static class InsertTask extends AsyncTask<Void,Void,Boolean> {
+    private static class InsertTask extends AsyncTask<Void, Void, Boolean> {
 
         private WeakReference<AddNoteActivity> activityReference;
         private Note note;
@@ -93,17 +98,21 @@ public class AddNoteActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... objs) {
             // retrieve auto incremented note id
-            long j = activityReference.get().noteDatabase.getNoteDao().insertNote(note);
-            note.setNote_id(j);
-            Log.e("ID ", "doInBackground: "+j );
+            if (note.getContent().isEmpty() && note.getTitle().isEmpty()) {
+                Log.w(LOG_TAG, "InsertTask: Note is empty");
+            } else {
+                long j = activityReference.get().noteDatabase.getNoteDao().insertNote(note);
+                note.setNote_id(j);
+                Log.i("ID ", "doInBackground: " + j);
+            }
             return true;
         }
 
         // onPostExecute runs on main thread
         @Override
         protected void onPostExecute(Boolean bool) {
-            if (bool){
-                activityReference.get().setResult(note,1);
+            if (bool) {
+                activityReference.get().setResult(note, 1);
                 activityReference.get().finish();
             }
         }
